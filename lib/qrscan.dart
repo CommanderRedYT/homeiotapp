@@ -128,6 +128,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
       setState(() {
         result = scanData;
       });
+      controller.stopCamera();
       Navigator.maybePop(buildContext!);
       updateKey(scanData.code!);
     });
