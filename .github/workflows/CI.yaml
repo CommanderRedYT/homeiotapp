@@ -1,0 +1,25 @@
+name: Flutter Workflow
+
+on: push
+jobs:
+  test:
+    name: Build app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Flutter
+        uses: britannio/action-install-flutter@v1
+
+      - name: Get Packages
+        run: flutter pub get
+
+      - name: Build app
+        run: |
+          flutter build apk --verbose
+          mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/homeiot.apk
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: homeiot-app
+          path: build/app/outputs/apk/release/homeiot.apk
